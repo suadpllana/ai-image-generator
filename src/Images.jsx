@@ -13,24 +13,29 @@ const Images = () => {
   async function getImages() {
     try {
     setLoading(true)
-    const url = "https://open-ai21.p.rapidapi.com/texttoimage2";
+    const url = 'https://ai-text-to-image-generator-api.p.rapidapi.com/3D';
     const options = {
-      method: "POST",
+      method: 'POST',
       headers: {
-        "x-rapidapi-key":  import.meta.env.VITE_API_KEY,
-        "x-rapidapi-host": "open-ai21.p.rapidapi.com",
-        "Content-Type": "application/json",
+        'x-rapidapi-key': import.meta.env.VITE_API_KEY,
+        'x-rapidapi-host': 'ai-text-to-image-generator-api.p.rapidapi.com',
+        'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ text: inputRef.current.value }),
+      body: JSON.stringify({
+        inputs: inputRef.current.value
+      })
     };
-
-   
+    
+  
       const response = await fetch(url, options);
       const result = await response.json();
-     
-      setImageData(result.generated_image)
+      console.log(result);
+      
+      setImageData(result.url)
       setLoading(false)
-    } catch (error) {
+    }
+     
+    catch (error) {
       console.error(error);
     }
   }
@@ -57,6 +62,6 @@ const Images = () => {
                 <button onClick={getImages}>Generate</button>
         </div>
   )
-};
+}
 
 export default Images;
