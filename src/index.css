@@ -66,4 +66,9 @@ button:hover{
   button{
     margin-top: 2rem;
   }
+  .loading{
+    margin-left: 2%;
+   
+  }
+  
 }
