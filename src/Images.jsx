@@ -11,6 +11,10 @@ const Images = () => {
     const [loading , setLoading] = useState(false)
 
   async function getImages() {
+    if(inputRef.current.value === ""){
+      alert("Please fill the input")
+      return
+    }
     try {
     setLoading(true)
     const url = 'https://ai-text-to-image-generator-api.p.rapidapi.com/3D';
