@@ -4,12 +4,35 @@ import image from "./assets/image.png"
 import { FaCity } from "react-icons/fa6";
 import { MdForest } from "react-icons/md";
 import { IoIosAirplane } from "react-icons/io";
-
+import { jsPDF } from "jspdf";
+import html2canvas from "html2canvas";
 const Images = () => {
 
 
   const imageRef = useRef(null); 
 
+  const downloadImageAsPDF = () => {
+    const input = document.querySelector(".generatedImage");
+  
+    html2canvas(input).then((canvas) => {
+      const imgData = canvas.toDataURL("image/png");
+  
+      const scaleFactor = 2.0; // Increase the size by 1.5x (adjust as needed)
+      const imgWidth = (canvas.width * scaleFactor) / 4;
+      const imgHeight = (canvas.height * scaleFactor) / 4;
+  
+      const pdf = new jsPDF({
+        orientation: imgWidth > imgHeight ? "landscape" : "portrait",
+        unit: "px",
+        format: [imgWidth, imgHeight], // Adjust PDF size to match the new image size
+      });
+  
+      pdf.addImage(imgData, "PNG", 0, 0, imgWidth, imgHeight);
+      pdf.save("image.pdf");
+    });
+  };
+  
+  
   
   
   const [inputText , setInputText] = useState("")
@@ -89,19 +112,22 @@ const Images = () => {
 
             <h1>AI Image <span>Generator</span></h1>
       
-            
+            <div className="imageContainer">
+              <div className="tooltip">Download</div>
             <img 
              className="generatedImage"    
-          
+             onClick={downloadImageAsPDF}
              src={imagesData ? imagesData : image} 
              alt="" /><br />
+            </div>
+           
       
              
-                <div className="loading">
+                <div className={loading ? "loading" : ""}>
                   <div className={loading? "loading-bar-full" : "loading-bar"}></div>
-                  <div className={loading?"loading-text" :  "display-none"}>Loading...</div>
+                  
                 </div>
-
+                <div className={loading?"loading-text" :  "display-none"}>Loading...</div>
 
                 <input onKeyDown={(e) => enter(e)} placeholder="Describe what u wanna see" onChange={(e) => setInputText(e.target.value) } value={inputText} type="text" />
 
