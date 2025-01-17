@@ -128,10 +128,12 @@ const Images = () => {
                   
                 </div>
                 <div className={loading?"loading-text" :  "display-none"}>Loading...</div>
+          <div className=" input-container">
+          <input onKeyDown={(e) => enter(e)} placeholder="Describe what u wanna see" onChange={(e) => setInputText(e.target.value) } value={inputText} type="text" />
 
-                <input onKeyDown={(e) => enter(e)} placeholder="Describe what u wanna see" onChange={(e) => setInputText(e.target.value) } value={inputText} type="text" />
-
-                <button onClick={getImages}>Generate</button>
+<button onClick={getImages}>Generate</button>
+          </div>
+              
         </div>
   )
 }
