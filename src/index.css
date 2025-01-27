@@ -135,7 +135,7 @@ top: 35px;
   }
   .loading{
     margin-left: 2%;
-   
+    width: 96%;
   }
   .promptContainer{
     width: 100%;
